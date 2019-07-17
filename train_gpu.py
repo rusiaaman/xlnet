@@ -300,7 +300,8 @@ def train(ps_device):
             curr_loss, math.exp(curr_loss), curr_loss / math.log(2)))
         total_loss, prev_step = 0., curr_step
 
-      if curr_step > 0 and curr_step % FLAGS.save_steps == 0:
+      if curr_step > 0 and (FLAGS.save_steps is not None and \
+                            curr_step % FLAGS.save_steps == 0):
         save_path = os.path.join(FLAGS.model_dir, "model.ckpt")
         saver.save(sess, save_path)
         tf.logging.info("Model saved in path: {}".format(save_path))
